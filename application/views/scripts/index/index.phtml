@@ -1,0 +1,53 @@
+<div id="filter">
+<table class="ticket_table">
+    <thead>
+        <tr>
+            <th data-col="ID">ID</th>
+            <th data-col="Author">Autor</th>
+            <th data-col="Title">Tytuł</th>
+            <th data-col="Status">Status</th>
+            <th data-col="Priority">Priorytet</th>
+            <th data-col="Attribute">Przydzielony do</th>
+            <th data-col="Data">Data utworzenia</th>
+            <th>Filtruj</th>
+        </tr>
+        <tr>
+        <form action="" method="POST" class="ajax">
+            <td><?php echo $this->form->id ?></td>
+            <td><?php echo $this->form->author ?></td>
+            <td><?php echo $this->form->title ?></td>
+            <td><?php echo $this->form->status ?></td>
+            <td><?php echo $this->form->priority ?></td>
+            <td><?php echo $this->form->attribute ?></td>
+            <td><?php echo $this->form->date ?></td>
+            <td><?php echo $this->form->submit ?><a href="<?php  echo $this->url(array('sort' => true, 'column' =>  'clear'), 'sort_ticket'); ?>" class="sort">Wyczyść wszystko</a></td>
+        </form>
+        <script src="/filter.js"></script>
+        </tr>
+    </thead>
+    <tbody>
+<?php
+if($this->entries != null)
+{
+    foreach($this->entries as $entry): ?>
+        <tr>
+            <td data-col="ID"><?php echo $this->escape($entry->ID) ?></td>
+            <td data-col="Author"><?php echo $this->escape($entry->Author) ?></td>
+            <td data-col="Title" title="<?php echo $this->escape($entry->Ticket_content) ?>"><a href="<?php echo $this->url(array('id' => $this->escape($entry->id)), 'show_ticket') ?>"><?php echo $this->escape($entry->Title) ?><a/></td>
+            <td data-col="Status"><?php echo $this->escape(Application_Model_Transators_Status::getOption($entry->Status)) ?></td>
+            <td data-col="Priority"><?php echo $this->escape(Application_Model_Transators_Priority::getOption($entry->Priority)) ?></td>
+            <td data-col="Attribute"><?php echo $this->escape($entry->Attribute) ?></td>
+            <td data-col="Date"><?php echo $this->escape($entry->Date) ?></td>
+            <td></td>
+        </tr>
+    <?php endforeach;
+}
+else
+{
+    echo '<tr><td colspan="8">Nie znaleziono żadnych rekordów</td></tr>';
+}
+?>
+    </tbody>
+</table>
+            
+</div>

@@ -1,0 +1,60 @@
+<?php echo $this->doctype() ?>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script src="/jquery-2.0.3.min.js"></script>
+        <?php echo $this->HeadTitle() ?>
+        <?php echo $this->headLink() ?>
+        
+        <style> 
+.ISort,.SSort{cursor: pointer;} 
+.ISort div, .SSort div{display: inline-block;width: 20px;} 
+</style>
+        
+    </head>
+    <body>
+
+        <div class="title">
+            TicketServ
+        </div>
+        <div class="contener">
+
+            <div class="top_menu">
+                <ul>
+                    
+                    <li><a href="<?php echo $this->url(array(), 'root')  ?>">Lista ticketów</a></li>
+                    <?php
+                    if($this->user->role == 'guest') {
+                        ?>
+                    <li><a href="<?php echo $this->url(array(), 'login')  ?>">Zaloguj się</a></li>
+                    <?php }
+                    else
+                    {
+                        ?>
+                        <li><a href="<?php echo $this->url(array(), 'new_ticket')  ?>">Utwórz nowy ticket</a></li>
+                        <li><a href="<?php echo $this->url(array('id' => $this->user->ID), 'show_user')  ?>">Mój profil</a></li>
+                        <?php if($this->user->role == 'admin')
+                        {
+                            ?>
+                            <li><a href="<?php echo $this->url(array(), 'new_user')  ?>">Stwórz użytkownika</a></li>
+                            <li><a href="<?php echo $this->url(array(), 'user_list')  ?>">Lista użytkowników</a></li>
+                            <li><a href="<?php echo $this->url(array(), 'config')  ?>">Ustawienia</a></li>
+                            <?php
+                        }?>
+                        <li><a href="<?php echo $this->url(array(), 'logout')  ?>">Wyloguj</a></li>
+                    <?php } ?>
+                </ul>
+            </div>
+
+            <div class="text_box">
+                <div class="title">
+                    <?= $this->site_name ?>
+                </div>
+                <br />
+                <br />
+                <?php echo $this->layout()->content ?>
+                
+            </div>
+        </div>
+    </body>
+</html>

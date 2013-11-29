@@ -1,0 +1,27 @@
+<table class="show_ticket">
+    <tr>
+        <td>Status: <?php echo $this->ticket->status ?></td>
+        <td></td>
+        <td><a href="">Dodaj odpowiedź</a></td>
+    </tr>
+    <tr>
+        <td>Priorytet: <?php echo $this->ticket->priority ?></td>
+        <td></td>
+        <td><?php 
+        if($this->ticket->author == $this->user->nickname || Zend_Auth::getInstance()->getStorage()->read()->Role == 'admin') { ?><a href="<?php echo $this->url(array('controller' => 'ticket', 'action' => 'edit')) ?>">Edytuj</a><?php } ?></td>
+    </tr>
+    <tr>
+        <td>Przydzielony do: <?php echo ' ' .$this->ticket->attribute ?></td>
+        <td></td>
+        <td><?php if($this->ticket->author == $this->user->nickname || Zend_Auth::getInstance()->getStorage()->read()->Role == 'admin') { ?><a href="<?php echo $this->url(array('controller' => 'ticket', 'action' => 'delete')) ?>" onClick="return confirm('Jesteś pewien że chcesz skasować ten ticket?')" >Usuń</a><?php } ?> &nbsp;</td>
+    </tr>
+    <tr>
+        <td>Twórca:<?php echo ' ' .$this->ticket->author ?></td>
+        <td>Tytuł: <?php echo ' ' .$this->ticket->title ?></td>
+        <td><?php echo $this->ticket->date ?></td>
+    </tr>
+    <tr>
+        <td colspan="3"><?php echo $this->ticket->ticket_content ?></td>
+    </tr>
+
+</table>

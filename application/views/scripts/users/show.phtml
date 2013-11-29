@@ -1,0 +1,95 @@
+<?php $extension = explode('.', $this->user_data->Avatar); 
+if($this->user_data->Avatar == 'none.png')
+{ ?>
+    <img src="/../avatars/none.png" />
+<?php }
+else
+{
+?>
+    <img src="<?php echo '/../avatars/'. $this->id . '.' . $this->config['Avatar_Width'] . 'x' . $this->config['Avatar_Height'] . '.' . $extension[1] ?>" />
+<?php } ?>
+<table class="show_ticket">
+    <tr>
+        <td>ID: <?php echo $this->user_data->ID ?></td>
+        <td></td>
+        <td><a href="<? echo $this->url(array('id' => $this->user_data->ID), 'edit_user') ?>">Edytuj</a></td>
+    </tr>
+    <tr>
+        <td>Nazwa użytkownika: <?php echo $this->user_data->Nickname ?></td>
+        <td></td>
+        <td>Usuń</td>
+    </tr>
+    <tr>
+        <td>Email: <?php echo ' ' .$this->user_data->Email ?></td>
+        <td></td>
+        <td><?php if($this->ticket->author == $this->user->nickname) { ?><a href="<?php echo $this->url(array('controller' => 'ticket', 'action' => 'delete')) ?>" onClick="return confirm('Jesteś pewien że chcesz skasować ten ticket?')" >Usuń</a><?php } ?> &nbsp;</td>
+    </tr>
+    <tr>
+        <td>Uprawnienia: <?php echo ' ' .$this->user_data->Role ?></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="3"><?php echo $this->ticket->ticket_content ?></td>
+    </tr>
+</table>
+<br /><br />
+<?php
+if($this->content != null)
+{
+    ?>
+    <h2>Tickety usera</h2>
+    <?php
+    foreach ($this->content as $entry)
+    {
+    ?>
+    <table class="show_ticket">
+        <tr>
+            <td>Tytuł: <?php echo $entry->Title; ?></td>
+            <td></td>
+            <td><a href="<?php echo $this->url(array('id' => $entry->ID), 'show_ticket'); ?>">Pokaż</a></td>
+        </tr>
+        <tr>
+            <td>Treść: <?php echo $entry->Ticket_content; ?></td>
+            <td></td>
+            <td>Status: <?php echo $entry->Status; ?></td>
+        </tr>
+
+    </table>
+    <?php
+    }
+}
+else 
+{
+    echo '<center>Ten użytkownik nie napisał żadnego ticketu</center><br />';
+}
+
+if($this->assignee != null)
+{
+    ?>
+    <h2>Przypisany do</h2>
+    <?php
+    foreach ($this->assignee as $entry)
+    {
+    ?>
+    <table class="show_ticket">
+        <tr>
+            <td>ID: <?php echo $entry->ID; ?></a</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><a href="<?php echo $this->url(array('id' => $entry->ID), 'show_ticket'); ?>">Tytuł: <?php echo $entry->Title; ?></a></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+    </table>
+    <?php
+    }
+}
+else 
+{
+    echo '<center>Ten użytkownik nie ma przypisanych ticketów</center><br />';
+}
+?>

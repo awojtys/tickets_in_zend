@@ -1,0 +1,49 @@
+<div id="filter">
+<table class="ticket_table">
+    <thead>
+    <tr>
+        <th data-col="ID">ID</th>
+        <th data-col="Nickname">Nickname</th>
+        <th data-col="Email">E-mail</th>
+        <th data-col="Rola">Rola</th>
+        <th>Filtruj</th>
+    </tr>
+    <tr>
+    <form action="" method="POST" class="ajax">
+        <td><?php echo $this->form->ID ?></td>
+        <td><?php echo $this->form->Nickname ?></td>
+        <td><?php echo $this->form->Email ?></td>
+        <td><?php echo $this->form->Role ?></td>
+        <td><?php echo $this->form->submit ?><a href="<?php  echo $this->url(array('sort' => true, 'column' =>  'clear'), 'sort_user'); ?>">Wyczyść wszystko</a></td>
+    </form>
+    <script src="/filter.js"></script>
+    </tr>
+    </thead>
+    <tbody>
+        <?php
+        if($this->entries != null)
+        {
+            foreach($this->entries as $entry)
+            {
+                ?>
+                <tr>
+                    <td data-col="ID"><?php echo $this->escape($entry->ID) ?></td>
+                    <td data-col="Nickname"><a href="<?php echo $this->url(array('id' => $this->escape($entry->ID)), 'show_user') ?>"><?php echo $this->escape($entry->Nickname) ?></a></td>
+                    <td data-col="Email"><?php echo $this->escape($entry->Email) ?></td>
+                    <td data-col="Rola"><?php echo $this->escape($entry->Role) ?></td>
+                    <td></td>
+                </tr>
+                <?php
+            }
+        }
+        else
+        {
+            ?>
+                <tr>
+                    <td colspan="5">Nie znaleziono żadnych rekordów</td>
+                </tr>
+            <?php
+        }
+        ?>
+    </tbody>        
+</table>
